@@ -18,6 +18,7 @@ connection_pool::connection_pool()
 
 connection_pool *connection_pool::GetInstance()
 {
+	// 使用单例模式实现数据库连接池
 	static connection_pool connPool;
 	return &connPool;
 }
@@ -42,6 +43,7 @@ void connection_pool::init(string url, string User, string PassWord, string DBNa
 			LOG_ERROR("MySQL Error");
 			exit(1);
 		}
+		// 建立MySQL连接，每一个连接都是一样的，并将它们放入连接池当中
 		con = mysql_real_connect(con, url.c_str(), User.c_str(), PassWord.c_str(), DBName.c_str(), Port, NULL, 0);
 
 		if (con == NULL)
